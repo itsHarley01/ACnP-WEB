@@ -1,63 +1,101 @@
-import React from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
-import Header from "../components/Header";
-import Navbar from "../components/NavBar";
-import Footer from "../components/Footer";
+import React, { useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import About from "../Components/Main/About";
 import Services from "../Components/Main/Services";
 import Projects from "../Components/Main/Projects";
+import ProductsByType from "../Components/Main/ProductsByType";
+import Contact from "../Components/Main/Contact";
 
 const MainPage = () => {
-  const productTypes = ["Glass", "Frame", "Complete Unit"];
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      const hash = location.hash; // Get the hash from the URL
+      if (hash) {
+        const section = document.querySelector(hash);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+  }, [location]);
 
   return (
     <div>
-      <Header />
-      <Navbar />
-
       <main className="container mx-auto">
-        <section id="about" className="py-20">
-          <About />
-        </section>
+        {location.pathname.startsWith("/products/") ? (
+          <ProductsByType />
+        ) : (
+          <>
+            <section id="about" className="py-20">
+              <About />
+            </section>
 
-        <section id="services" className="py-20">
-          <h2 className="text-3xl font-bold">Services</h2>
-          <Services />
-        </section>
+            <section id="services" className="py-20">
+              <h2 className="text-3xl font-bold">Services</h2>
+              <Services />
+            </section>
 
-        <section id="projects" className="py-20">
-          <h2 className="text-3xl font-bold">Projects</h2>
-          <Projects />
-        </section>
+            <section id="projects" className="py-20">
+              <h2 className="text-3xl font-bold">Projects</h2>
+              <Projects />
+            </section>
 
-        <section id="products" className="py-20">
-          <h2 className="text-3xl font-bold">Products</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
-            {productTypes.map((type) => (
-              <Link
-                key={type}
-                to={`/products/${type.toLowerCase()}`} // Navigate to products/{type}
-                className="bg-gray-300 p-6 rounded-lg shadow-lg flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
-              >
-                <h3 className="text-xl font-semibold">{type}</h3>
-                <p className="mt-2">Click to see {type} products</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+            <section id="products" className="py-20">
+              <h2 className="text-3xl font-bold">Products</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                <div
+                  className="bg-gray-200 p-4 rounded-lg cursor-pointer"
+                  onClick={() => (window.location.href = "/products/glass")}
+                >
+                  <h3 className="text-xl font-semibold">Glass</h3>
+                </div>
+                <div
+                  className="bg-gray-200 p-4 rounded-lg cursor-pointer"
+                  onClick={() => (window.location.href = "/products/frame")}
+                >
+                  <h3 className="text-xl font-semibold">Frame</h3>
+                </div>
+                <div
+                  className="bg-gray-200 p-4 rounded-lg cursor-pointer"
+                  onClick={() =>
+                    (window.location.href = "/products/completeunit")
+                  }
+                >
+                  <h3 className="text-xl font-semibold">Complete Unit</h3>
+                </div>
+              </div>
+            </section>
 
-        <section id="contactform" className="py-20">
-          <h2 className="text-3xl font-bold">Appointment Booking</h2>
-          <p>Your appointment booking form goes here.</p>
-        </section>
+            <section
+              id="contactform"
+              className="py-20 bg-gray-100 flex justify-between items-center"
+            >
+              <div className="flex-1 p-4">
+                <h2 className="text-3xl font-bold mb-4">Appointment Booking</h2>
+                <p className="text-lg">
+                  Schedule your appointment with us today! Choose a date and
+                  time that works for you.
+                </p>
+              </div>
+              <div>
+                <button
+                  className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600"
+                  onClick={() => (window.location.href = "/book-appointment")}
+                >
+                  Book Now
+                </button>
+              </div>
+            </section>
 
-        <section id="contact" className="py-20">
-          <h2 className="text-3xl font-bold">Contact</h2>
-          <p>Your contact content goes here.</p>
-        </section>
+            <section id="contact" className="py-20">
+              <h2 className="text-3xl font-bold">Contact</h2>
+              <Contact />
+            </section>
+          </>
+        )}
       </main>
-
-      <Footer />
     </div>
   );
 };

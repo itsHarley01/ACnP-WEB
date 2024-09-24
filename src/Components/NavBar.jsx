@@ -8,38 +8,37 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center py-4">
         <div>
           <Link to="/">
-            <img src={logo2} alt="Logo" className="h-20" />{" "}
-            {/* Adjust height as needed */}
+            <img src={logo2} alt="Logo" className="h-20" />
           </Link>
         </div>
         <ul className="flex space-x-6">
           <li>
-            <Link to="/about" className="text-white hover:text-gray-300">
+            <Link to="/#about" className="text-white hover:text-gray-300">
               About
             </Link>
           </li>
           <li>
-            <Link to="/services" className="text-white hover:text-gray-300">
+            <Link to="/#services" className="text-white hover:text-gray-300">
               Services
             </Link>
           </li>
           <li>
-            <Link to="/products" className="text-white hover:text-gray-300">
+            <Link to="/#products" className="text-white hover:text-gray-300">
               Products
             </Link>
           </li>
           <li>
-            <Link to="/projects" className="text-white hover:text-gray-300">
+            <Link to="/#projects" className="text-white hover:text-gray-300">
               Projects
             </Link>
           </li>
           <li>
-            <Link to="/contact" className="text-white hover:text-gray-300">
+            <Link to="/#contact" className="text-white hover:text-gray-300">
               Contact
             </Link>
           </li>
           <li>
-            <Link to="/contactform" className="text-white hover:text-gray-300">
+            <Link to="/#contactform" className="text-white hover:text-gray-300">
               Appointment Booking
             </Link>
           </li>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://192.168.221.176:3000';
+const API_URL = 'http://192.168.137.176:3000';
 
 export const fetchAboutDescription = async () => {
     const response = await axios.get(`${API_URL}/about`);
