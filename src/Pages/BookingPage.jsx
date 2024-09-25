@@ -273,7 +273,7 @@ function BookingPage() {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="inset-0 flex items-center justify-center min-h-screen">
       <div className="bg-white w-[600px] p-6 shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Booking Form</h2>
         <form onSubmit={handleSubmit}>

@@ -9,7 +9,9 @@ function MainLayout() {
     <div>
       <Header />
       <Navbar />
+
       <Outlet />
+
       <Footer />
     </div>
   );

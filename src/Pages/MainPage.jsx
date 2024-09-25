@@ -80,12 +80,12 @@ const MainPage = () => {
                 </p>
               </div>
               <div>
-                <button
+                <NavLink
                   className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600"
-                  onClick={() => (window.location.href = "/book-appointment")}
+                  to="book-appointment"
                 >
                   Book Now
-                </button>
+                </NavLink>
               </div>
             </section>
 
