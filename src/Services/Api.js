@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://192.168.100.7:3000';
+const API_URL = 'http://192.168.1.28:3000';
 
 export const fetchAboutDescription = async () => {
     const response = await axios.get(`${API_URL}/about`);
@@ -30,7 +30,12 @@ export const fetchProductsByType = async (type) => {
 
 export const createAppointment = async (appointmentData) => {
     const response = await axios.post(`${API_URL}/appointment`, appointmentData);
-    console.log(response)
     return response.data; 
 };
-  
+
+export const getDateByAppointment = async () => {
+    const response = await axios.get(`${API_URL}/appointmentDate`);
+    return response.data;
+};
+
+    

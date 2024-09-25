@@ -5,3 +5,8 @@
 html {
   scroll-behavior: smooth;
 }
+
+.custom-red {
+  background-color: #ff0000 !important;
+  color: white;
+}
