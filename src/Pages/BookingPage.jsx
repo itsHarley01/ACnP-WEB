@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createAppointment } from "../Services/Api"; // Import the function
 
 function BookingPage() {
   const [purpose, setPurpose] = useState("");
@@ -9,20 +10,43 @@ function BookingPage() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
+  const [error, setError] = useState(null); // Handle error
+  const [success, setSuccess] = useState(false); // Handle success
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here, like sending data to a server
-    console.log({
-      purpose,
-      name,
-      email,
-      phone,
-      address, // Include address in submission
-      date,
-      time,
-      additionalInfo,
-    });
+
+    const appointmentData = {
+      service: purpose,
+      name: name,
+      email: email,
+      contactNumber: phone,
+      address: address,
+      preferredDate: date,
+      preferredTime: time,
+      note: additionalInfo,
+      status: "pending",
+    };
+
+    try {
+      const response = await createAppointment(appointmentData); // Call the API
+      console.log("Appointment created:", response);
+      setSuccess(true); // Set success state
+      setError(null); // Clear any previous errors
+      // Optionally reset the form
+      setPurpose("");
+      setName("");
+      setEmail("");
+      setPhone("");
+      setAddress("");
+      setDate("");
+      setTime("");
+      setAdditionalInfo("");
+    } catch (err) {
+      console.error("Error creating appointment:", err);
+      setError("Failed to create appointment. Please try again."); // Set error state
+      setSuccess(false); // Reset success state if error occurs
+    }
   };
 
   return (
@@ -142,6 +166,11 @@ function BookingPage() {
             className="border border-gray-300 rounded w-full py-2 px-3"
           />
         </div>
+
+        {error && <p className="text-red-500">{error}</p>}
+        {success && (
+          <p className="text-green-500">Appointment successfully created!</p>
+        )}
 
         <div className="flex items-center justify-between">
           <button
