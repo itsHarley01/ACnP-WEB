@@ -26,18 +26,26 @@ function Projects() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="py-10">
-      <h2 className="text-3xl font-bold text-center mb-6">Projects Gallery</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 container mx-auto">
-        {projects.map((project) => (
+    <div className="">
+     
+      
+      {/* Project Collage */}
+      <div className="relative container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {projects.map((project, index) => (
           <div
             key={project._id}
-            className="overflow-hidden rounded-lg shadow-lg"
+            className={`overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:z-10 ${
+              index % 2 === 0 ? "transform rotate-0" : "transform -rotate-0"
+            }`}
+            style={{
+              gridColumn: `${(index % 3) + 1}`, // Alternates columns for more dynamic collage layout
+              gridRow: `${Math.floor(index / 3) + 1}`,
+            }}
           >
             <img
               src={project.uri} // Adjust based on your API response
               alt={`Project ${project._id}`} // Use a descriptive alt attribute
-              className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+              className="w-full h-64 object-cover"
             />
           </div>
         ))}

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import { fetchServices } from "../../Services/Api";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Services() {
   const [services, setServices] = useState([]);
@@ -10,7 +13,7 @@ function Services() {
     const getServices = async () => {
       try {
         const data = await fetchServices();
-        setServices(data); // Adjust based on your API response structure
+        setServices(data);
       } catch (err) {
         setError("Failed to fetch services");
       } finally {
@@ -21,24 +24,65 @@ function Services() {
     getServices();
   }, []);
 
+  // Slick settings
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+        },
+      },
+    ],
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex flex-wrap justify-center">
-      {services.map((service) => (
-        <div
-          key={service.id} // Adjust based on your API response
-          className="relative m-4 w-64 h-40 bg-cover bg-center"
-          style={{ backgroundImage: `url(${service.image})` }}
-        >
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-4">
-            <h3 className="text-xl font-bold">{service.name}</h3>
-            <p className="text-sm">{service.description}</p>
+    <div className="p-6">
+      <Slider {...settings}>
+        {services.map((service) => (
+          <div key={service.id} className="px-2">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              {/* Service Image */}
+              <div
+                className="h-40 bg-cover bg-center"
+                style={{ backgroundImage: `url(${service.image})` }}
+              ></div>
+
+              {/* Service Content */}
+              <div className="p-6">            
+                <h3 className="text-xl font-bold mb-2">{service.name}</h3>
+                <p className="text-gray-600 mb-4">{service.description}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </Slider>
     </div>
   );
 }

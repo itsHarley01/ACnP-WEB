@@ -1,0 +1,13 @@
+.cascade-slide {
+    opacity: 0;  /* Initially hidden */
+    transform: translateY(20px); /* Start with a slight downward offset */
+    animation: cascade-in 0.5s forwards; /* Run the animation */
+  }
+  
+  @keyframes cascade-in {
+    to {
+      opacity: 1;  /* Fade in */
+      transform: translateY(0); /* Move to original position */
+    }
+  }
+  

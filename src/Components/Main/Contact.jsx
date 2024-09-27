@@ -1,3 +1,4 @@
+import emailjs from "emailjs-com";
 import React, { useState } from "react";
 
 const ContactForm = () => {
@@ -14,8 +15,24 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+
+    // EmailJS configuration
+    const serviceID = "service_qgsom4b"; // Replace with your EmailJS service ID
+    const templateID = "template_3dhmz4a"; // Replace with your EmailJS template ID
+    const userID = "rdPJtio-xAEev2laS"; // Replace with your EmailJS user ID
+
+    // Sending email using EmailJS
+    emailjs.send(serviceID, templateID, formData, userID)
+      .then((response) => {
+        console.log("Email sent successfully!", response.status, response.text);
+        // Optionally reset form fields after successful submission
+        setFormData({ name: "", email: "", message: "" });
+        alert("Message sent successfully!");
+      })
+      .catch((err) => {
+        console.error("Failed to send email. Error: ", err);
+        alert("Failed to send message, please try again later.");
+      });
   };
 
   return (

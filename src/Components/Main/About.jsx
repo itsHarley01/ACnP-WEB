@@ -29,7 +29,7 @@ function About() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold">About</h2>
+      <h2 className="text-3xl font-bold"></h2>
       <p>{description}</p>
     </div>
   );
