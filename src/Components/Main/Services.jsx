@@ -1,10 +1,9 @@
-// Services.js
 import React, { useEffect, useState, useRef } from "react";
 import Slider from "react-slick";
 import { fetchServices } from "../../Services/Api";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './Services.css'; // For custom styles
+import './Services.css'; // Custom styles for Services component
 
 function Services() {
   const [services, setServices] = useState([]);
@@ -30,78 +29,85 @@ function Services() {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
-    slidesToShow: 1,
+    speed: 600,
+    slidesToShow: 3, // Show multiple services in large screens
     slidesToScroll: 1,
     centerMode: true,
-    centerPadding: '60px', // Adjust padding for centering effect
+    centerPadding: '50px', // Adjust padding for centering effect
     responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          centerPadding: '30px',
+        },
+      },
       {
         breakpoint: 768,
         settings: {
-          centerPadding: '40px',
+          slidesToShow: 1,
+          centerPadding: '20px',
         },
       },
       {
         breakpoint: 480,
         settings: {
-          centerPadding: '20px',
+          slidesToShow: 1,
+          centerPadding: '10px',
         },
       },
     ],
   };
 
   if (loading) return <div className="text-center">Loading...</div>;
-  if (error) return <div className="text-center">{error}</div>;
+  if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
-    <div className="services-carousel relative">
-      {/* Left Button */}
+    <div className="services-carousel relative py-10 px-4 lg:px-0">
+      {/* Left Arrow Button */}
       <button
-        className="arrow-btn left-0"
+        className="arrow-btn left-0 transform -translate-y-1/2 absolute top-1/2 bg-blue-600 rounded-full p-3 shadow-lg hover:bg-blue-700 transition duration-300"
         onClick={() => sliderRef.current.slickPrev()}
         aria-label="Previous Service"
       >
-        <span className="arrow-icon" style={{ color: 'white' }}>&lt;</span>
+        <span className="arrow-icon text-white text-lg">&lt;</span>
       </button>
 
       {/* Slider */}
       <Slider ref={sliderRef} {...sliderSettings}>
         {services.map((service) => (
-          <div key={service.id} className="p-4 service-card">
-            <div className="service-content bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+          <div key={service.id} className="p-4">
+            <div className="service-card bg-white rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+              {/* Service Image */}
               <div
-                className="service-image h-48 bg-cover bg-center"
-                style={{ backgroundImage: `url(${service.image})` }}
-              >
-                {/* Placeholder for when image is not available */}
-                {!service.image && (
-                  <div className="image-placeholder">
-                    <img
-                      src="path_to_placeholder_image" // Replace with the actual placeholder image path
-                      alt="placeholder"
-                      className="mx-auto"
-                    />
-                  </div>
-                )}
-              </div>
-              <div className="service-details text-center p-4">
-                <h3 className="text-lg font-bold text-gray-800">{service.name}</h3>
-                <p className="text-sm text-gray-600 mb-4">{service.description}</p>
-                <button className="go-btn">Go</button>
+                className="service-image h-48 bg-cover bg-center rounded-t-lg"
+                style={{
+                  backgroundImage: service.image
+                    ? `url(${service.image})`
+                    : `url(path_to_placeholder_image)`, // Replace with actual placeholder image
+                }}
+              />
+              
+              {/* Service Details */}
+              <div className="service-details text-center p-6">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">{service.name}</h3>
+                <p className="text-gray-600 text-sm mb-4">{service.description}</p>
+                <button className="go-btn bg-blue-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+                  Explore
+                </button>
               </div>
             </div>
           </div>
         ))}
       </Slider>
 
-      {/* Right Button */}
+      {/* Right Arrow Button */}
       <button
-        className="arrow-btn right-0"
+        className="arrow-btn right-0 transform -translate-y-1/2 absolute top-1/2 bg-blue-600 rounded-full p-3 shadow-lg hover:bg-blue-700 transition duration-300"
         onClick={() => sliderRef.current.slickNext()}
         aria-label="Next Service"
       >
-        <span className="arrow-icon" style={{ color: 'white' }}>&gt;</span>
+        <span className="arrow-icon text-white text-lg">&gt;</span>
       </button>
     </div>
   );
