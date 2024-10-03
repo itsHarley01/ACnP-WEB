@@ -93,7 +93,7 @@ const MainPage = () => {
 
 
             <section id="contact" className="py-20">
-              <h2 className="text-3xl font-bold text-center">Contact Us</h2>
+              <h2 className="text-3xl font-bold text-center">Contact</h2>
               <Contact />
             </section>
           </>
