@@ -22,31 +22,27 @@ function Projects() {
     getProjects();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="flex justify-center items-center h-screen"><div className="loader"></div></div>;
+  if (error) return <div className="text-red-500 text-center">{error}</div>;
 
   return (
-    <div className="">
-     
-      
-      {/* Project Collage */}
-      <div className="relative container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {projects.map((project, index) => (
+    <div className="py-10">
+      <h2 className="text-3xl font-bold text-center mb-6"></h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 container mx-auto">
+        {projects.map((project) => (
           <div
             key={project._id}
-            className={`overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:z-10 ${
-              index % 2 === 0 ? "transform rotate-0" : "transform -rotate-0"
-            }`}
-            style={{
-              gridColumn: `${(index % 3) + 1}`, // Alternates columns for more dynamic collage layout
-              gridRow: `${Math.floor(index / 3) + 1}`,
-            }}
+            className="overflow-hidden rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"
           >
             <img
               src={project.uri} // Adjust based on your API response
               alt={`Project ${project._id}`} // Use a descriptive alt attribute
-              className="w-full h-64 object-cover"
+              className="w-full h-48 object-cover"
             />
+            <div className="p-4 bg-white">
+              <h3 className="font-semibold text-lg">{project.title || "SM Window"}</h3>
+              <p className="text-gray-600">{project.description || "Very Nice siya"}</p>
+            </div>
           </div>
         ))}
       </div>

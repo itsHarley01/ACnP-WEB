@@ -1,32 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import About from "../Components/Main/About";
 import Services from "../Components/Main/Services";
 import Projects from "../Components/Main/Projects";
 import ProductsByType from "../Components/Main/ProductsByType";
 import Contact from "../Components/Main/Contact";
+import contactImage from "../assets/phone.png"; // Replace with your actual image path
 
-// Simple CSS spinner styles
-const spinnerStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: "100vh",
-  fontSize: "2rem",
-  color: "#3498db",
-};
+
 
 const MainPage = () => {
   const location = useLocation();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // 2 seconds loading time
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -40,62 +24,29 @@ const MainPage = () => {
     }
   }, [location]);
 
-  if (loading) {
-    return (
-      <div style={spinnerStyle}>
-        <div className="loader">
-          <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <main className="container mx-auto px-4 py-10 font-inter">
+      <main className="container mx-auto">
         {location.pathname.startsWith("/products/") ? (
           <ProductsByType />
         ) : (
           <>
-            {/* About Section */}
-            <section
-              id="about"
-              className="relative py-20 mb-10 p-6 bg-cover bg-center rounded-lg text-white"
-              style={{ backgroundImage: `url('/assets/book.png')` }} 
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-300 to-blue-300 opacity-80 rounded-lg"></div>
-              <div className="relative z-10 text-center">
-                <h2 className="text-5xl font-extrabold mb-6 tracking-wide animate-fade-in">About Us</h2>
-                <p className="text-lg leading-relaxed text-white mb-6 animate-fade-in-delayed">
-                  We are a passionate team delivering top-notch services and products. Learn more about what we do.
-                </p>
-                <About />
-              </div>
+            <section id="about" className="py-20">
+              <About />
             </section>
 
-            {/* Services Section */}
-            <section id="services" className="py-20 mb-10 rounded-lg shadow-lg">
-              <h2 className="text-5xl font-extrabold mb-6 text-center text-gray-900 animate-fade-in">Our Services</h2>
-              <p className="text-lg text-center text-gray-700 mb-6">
-                Discover the wide range of services we provide to make your life easier.
-              </p>
+            <section id="services" className="py-20">
+              <h2 className="text-3xl font-bold text-center">Services Offered</h2>
               <Services />
             </section>
 
-            {/* Projects Section */}
-            <section id="projects" className="py-20 mb-10 bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-5xl font-extrabold mb-12 text-center text-gray-900 animate-fade-in">Projects</h2>
-              <p className="text-lg text-center text-gray-700 mb-6">
-                Explore our portfolio of successful projects.
-              </p>
+            <section id="projects" className="py-20">
+              <h2 className="text-3xl font-bold text-center">Projects Gallery</h2>
               <Projects />
             </section>
 
-            {/* Products Section */}
-            <section id="products" className="py-20 mb-10 bg-gradient-to-r from-indigo-300 to-blue-300 rounded-lg shadow-lg p-6">
-              <h2 className="text-5xl font-extrabold mb-6 text-center text-white animate-fade-in">Our Products</h2>
+            <section id="products" className="py-20 mb-10   p-6">
+              <h2 className="text-3xl font-extrabold mb-6 text-center text-black animate-fade-in">Our Samples</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {[
                   { title: "Glass", description: "High-quality glass products for your needs.", path: "/products/glass" },
@@ -114,30 +65,35 @@ const MainPage = () => {
               </div>
             </section>
 
-            {/* Appointment Section */}
+            {/* Contact Form Section */}
             <section
-              id="contactform"
-              className="py-20 bg-gradient-to-r from-indigo-300 to-blue-300 rounded-lg flex flex-col md:flex-row justify-between items-center shadow-lg mb-10 p-6"
-            >
-              <div className="flex-1 mb-4 md:mb-0">
-                <h2 className="text-5xl font-extrabold mb-4 text-white animate-fade-in">Appointment Booking</h2>
-                <p className="text-lg text-gray-200">
-                  Schedule your appointment with us today! Choose a date and time that works for you.
-                </p>
-              </div>
-              <div className="p-4">
-                <NavLink
-                  className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700 transition duration-200 shadow-md"
-                  to="book-appointment"
-                >
-                  Book Now
-                </NavLink>
-              </div>
-            </section>
+  id="contactform"
+  className="py-6 bg-blue-500 flex items-center justify-center relative" // Set relative positioning on the container
+>
+  <div className="flex items-center max-w-2xl w-full"> {/* Keep the existing layout */}
+    <div className="flex-1 p-1 max-w-sm"> {/* Added max-w-sm for limiting width of text container */}
+      <h2 className="text-1xl text-white font-bold mb-1">
+        Elevate your space with "Aparace Cuts n Pieces" glass service-we're ready when you are!
+      </h2>
+      <NavLink
+        className="bg-white text-black py-2 px-4 rounded hover:bg-white-600 transition duration-300 ease-in-out"
+        to="book-appointment"
+      >
+        Book Now!
+      </NavLink>
+    </div>
+    {/* Image with overlapping effect */}
+    <img
+      src={contactImage}
+      alt="Contact Us"
+      className="w-1/4 h-auto absolute right-16 transform translate-x-1/4 top 9" // Adjust width and positioning
+    />
+  </div>
+</section>
 
-            {/* Contact Section */}
-            <section id="contact" className="py-20 mb-10 p-6 bg-white rounded-lg shadow-lg">
-              <h2 className="text-5xl font-extrabold mb-6 text-center text-gray-900 animate-fade-in">Contact Us</h2>
+
+            <section id="contact" className="py-20">
+              <h2 className="text-3xl font-bold text-center">Contact Us</h2>
               <Contact />
             </section>
           </>

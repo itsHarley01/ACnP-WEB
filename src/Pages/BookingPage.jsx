@@ -3,7 +3,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { createAppointment, getDateByAppointment } from "../Services/Api";
 import { useNavigate } from 'react-router-dom'; 
-import emailjs from "emailjs-com"; // Import EmailJS
+import emailjs from "emailjs-com";
+ // Import EmailJS
 
 function BookingPage() {
     const [step, setStep] = useState(1);
@@ -244,6 +245,7 @@ function BookingPage() {
                         <label className="block text-gray-700 mb-2">Select Date</label>
                         <Calendar
                             onChange={handleDateChange}
+                            minDate={new Date()} // Prevent past date selection
                             tileClassName={({ date }) => {
                                 const dateString = date.toISOString().split("T")[0];
                                 return bookedDates[dateString] ? "custom-red" : null;
@@ -301,47 +303,89 @@ function BookingPage() {
     };
 
     return (
-        <div className="inset-0 flex items-center justify-center min-h-screen">
-            <div className="bg-white w-[600px] p-6 shadow-lg rounded-lg">
-                <h2 className="text-2xl font-bold mb-4">Booking Form</h2>
-                <form onSubmit={handleSubmit}>
-                    {renderStepContent()}
-                    {error.general && (
-                        <p className="text-red-500 text-sm mb-4">{error.general}</p>
-                    )}
-                    {success && (
-                        <p className="text-green-500 text-sm mb-4">
-                            Appointment successfully created!
-                        </p>
-                    )}
-                    <div className="flex justify-between mt-4">
-                        {step > 1 && (
-                            <button
-                                type="button"
-                                className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
-                                onClick={() => setStep(step - 1)}
-                            >
-                                Previous
-                            </button>
-                        )}
-                        {step < 5 ? (
-                            <button
-                                type="button"
-                                className="bg-blue-500 text-white px-4 py-2 rounded"
-                                onClick={handleNext}
-                            >
-                                Next
-                            </button>
-                        ) : (
-                            <button
-                                type="submit"
-                                className="bg-green-500 text-white px-4 py-2 rounded"
-                            >
-                                Confirm Booking
-                            </button>
-                        )}
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="flex bg-white w-[800px] p-6 shadow-lg rounded-lg">
+                {/* Stepper Section */}
+                <div className="relative w-1/3 mr-4">
+                    <h2 className="text-2xl font-bold mb-4">Booking Steps</h2>
+                    <div className="flex flex-col">
+                        {Array.from({ length: 5 }, (_, index) => (
+                            <div key={index} className={`flex items-center mb-4 relative`}>
+                                <div
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                        step === index + 1 ? "bg-blue-500 text-white" : step > index + 1 ? "bg-green-500 text-white" : "bg-gray-300"
+                                    }`}
+                                >
+                                    {index + 1}
+                                </div>
+                                <div className="ml-4">
+                                    <h3 className="font-semibold">
+                                        {index === 0 && "Purpose of Booking"}
+                                        {index === 1 && "Personal Information"}
+                                        {index === 2 && "Select Date and Time"}
+                                        {index === 3 && "Additional Information"}
+                                        {index === 4 && "Terms and Conditions"}
+                                    </h3>
+                                    {index < step - 1 && (
+                                        <p className="text-gray-500">Completed</p>
+                                    )}
+                                    {index === step - 1 && (
+                                        <p className="text-blue-500">Current Step</p>
+                                    )}
+                                </div>
+                                {index < 4 && ( // Add the line only if it's not the last step
+                                    <div
+                                        className={`absolute left-4 top-10 w-1 h-16 ${
+                                            step > index + 1 ? "bg-green-500" : "bg-gray-300"
+                                        }`}
+                                    />
+                                )}
+                            </div>
+                        ))}
                     </div>
-                </form>
+                </div>
+                {/* Form Section */}
+                <div className="w-2/3">
+                    <h2 className="text-2xl font-bold mb-4">Booking Form</h2>
+                    <form onSubmit={handleSubmit}>
+                        {renderStepContent()}
+                        {error.general && (
+                            <p className="text-red-500 text-sm mb-4">{error.general}</p>
+                        )}
+                        {success && (
+                            <p className="text-green-500 text-sm mb-4">
+                                Appointment successfully created!
+                            </p>
+                        )}
+                        <div className="flex justify-between mt-4">
+                            {step > 1 && (
+                                <button
+                                    type="button"
+                                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
+                                    onClick={() => setStep(step - 1)}
+                                >
+                                    Previous
+                                </button>
+                            )}
+                            {step < 5 ? (
+                                <button
+                                    type="button"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                                    onClick={handleNext}
+                                >
+                                    Next
+                                </button>
+                            ) : (
+                                <button
+                                    type="submit"
+                                    className="bg-green-500 text-white px-4 py-2 rounded"
+                                >
+                                    Confirm Booking
+                                </button>
+                            )}
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );
