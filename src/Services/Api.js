@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://192.168.1.52:3000';
+const API_URL = 'https://a-cn-p-backend.vercel.app';
+
 
 export const fetchAboutDescription = async () => {
     const response = await axios.get(`${API_URL}/about`);
