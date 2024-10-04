@@ -39,4 +39,8 @@ export const getDateByAppointment = async () => {
     return response.data;
 };
 
+export const createMessage = async (messageData) => {
+    const response = await axios.post(`${API_URL}/feedback`, messageData);
+    return response.data; 
+};
     
