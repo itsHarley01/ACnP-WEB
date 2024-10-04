@@ -1,103 +1,54 @@
 /* Services.css */
 .services-carousel {
     position: relative;
-    padding: 40px 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .arrow-btn {
-    background-color: #4A90E2; /* Button background color */
-    color: rgb(255, 255, 255); /* Text color */
-    border: none; /* No border */
-    border-radius: 50%; /* Round button */
-    width: 40px; /* Fixed width */
-    height: 40px; /* Fixed height */
-    display: flex; /* Flexbox for centering */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    position: absolute; /* Positioning */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Center adjustment */
-    z-index: 1; /* Bring button to the front */
-    cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transition effects */
-  }
-  
-  .arrow-btn:hover {
-    background-color: #357ABD; /* Darker shade on hover */
-    transform: translateY(-50%) scale(1.1); /* Slightly enlarge on hover */
-  }
-  
-  .arrow-icon {
-    font-size: 24px; /* Adjust icon size */
-  }
-  
-  .arrow-btn.left-0 {
-    left: 10px; /* Adjusted left position */
-  }
-  
-  .arrow-btn.right-0 {
-    right: 10px; /* Adjusted right position */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
   }
   
   .service-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: white;
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .service-content {
-    transition: transform 0.3s;
+  .service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   }
   
   .service-image {
-    height: 200px; /* Fixed height for the image */
+    height: 200px;
     background-size: cover;
     background-position: center;
-  }
-  
-  .image-placeholder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-color: #f0f0f0; /* Light gray background for placeholder */
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
   }
   
   .service-details {
-    padding: 20px;
+    padding: 1.5rem;
+    text-align: center;
   }
   
   .go-btn {
-    background-color: #007bff; /* Blue button */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: #1e90ff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
   }
   
   .go-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  .text-lg {
-    font-size: 1.25rem; /* Larger font size for headings */
-  }
-  
-  .text-sm {
-    font-size: 0.875rem; /* Smaller font size for descriptions */
-  }
-  
-  @media (max-width: 768px) {
-    .service-image {
-      height: 150px; /* Responsive height */
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .service-image {
-      height: 120px; /* Responsive height */
-    }
+    background-color: #187bcd;
   }
   
